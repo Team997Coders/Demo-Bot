@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -13,10 +13,10 @@ import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
   
-  private VictorSPX frontRight;
-  private VictorSPX frontLeft;
-  private VictorSPX backRight;
-  private VictorSPX backLeft;
+  private WPI_VictorSPX frontRight;
+  private WPI_VictorSPX frontLeft;
+  private WPI_VictorSPX backRight;
+  private WPI_VictorSPX backLeft;
   
   private SpeedControllerGroup leftSide;
   private SpeedControllerGroup rightSide;
@@ -24,10 +24,10 @@ public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
   public Drivetrain() {
 
-    frontRight = new VictorSPX(Constants.Ports.DRIVE_PORTS[0]);
-    frontLeft = new VictorSPX(Constants.Ports.DRIVE_PORTS[1]);
-    backRight = new VictorSPX(Constants.Ports.DRIVE_PORTS[2]);
-    backLeft = new VictorSPX(Constants.Ports.DRIVE_PORTS[3]);
+    frontRight = new WPI_VictorSPX(Constants.Ports.DRIVE_PORTS[0]);
+    frontLeft = new WPI_VictorSPX(Constants.Ports.DRIVE_PORTS[1]);
+    backRight = new WPI_VictorSPX(Constants.Ports.DRIVE_PORTS[2]);
+    backLeft = new WPI_VictorSPX(Constants.Ports.DRIVE_PORTS[3]);
 
     backRight.follow(frontRight);
     backLeft.follow(frontLeft);
@@ -40,6 +40,7 @@ public class Drivetrain extends SubsystemBase {
     leftSide = new SpeedControllerGroup(frontLeft, backLeft);
     rightSide = new SpeedControllerGroup(frontRight, backRight);
     
+    diffDrive = new DifferentialDrive(leftSide, rightSide);
   }
 
   public void arcadeDrive(double speed, double rotation){
