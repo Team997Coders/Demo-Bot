@@ -48,8 +48,35 @@ public class Drivetrain extends SubsystemBase {
     
   }
 
-  public void arcadeDrive(double speed, double rotation){
-    diffDrive.arcadeDrive(speed, rotation);
+  // public void arcadeDrive(double speed, double rotation){
+  //  diffDrive.arcadeDrive(speed, rotation);
+  // }
+
+  public double numberLimits(double f, boolean ceiling, double highestAbs, boolean deadMan, double deadManTolerance) {  // aww yeah simple function with 5 arguments
+    if (deadMan == true) {
+      if (Math.abs(f) < deadManTolerance) {
+        f = 0;
+      }
+    }
+    if (ceiling == true) {
+      if (f > highestAbs) {
+        f = highestAbs;
+      }
+      else if (f < -1*highestAbs) {
+        f = -1*highestAbs;
+      }
+    }
+    return f;
+  }
+  public void betterArcadeDrive(double speed, double rotation) {
+    speed = numberLimits(speed, true, 1, true, 0.1);
+    rotation = numberLimits(speed, true, 1, true, 0.1);
+
+    double left_throttle = (numberLimits(speed, true, 1, false, 0))+numberLimits(rotation, true, 1, false, 0);
+    double right_throttle = (numberLimits(speed, true, 1, false, 0))-numberLimits(rotation, true, 1, false, 0);
+
+    leftSide.set(left_throttle);
+    rightSide.set(right_throttle);
   }
   @Override
   public void periodic() {

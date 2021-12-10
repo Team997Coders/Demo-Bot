@@ -29,7 +29,7 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.arcadeDrive(xSupplier.get(), zSupplier.get());
+    drivetrain.betterArcadeDrive(xSupplier.get(), zSupplier.get());
     
   }
 
