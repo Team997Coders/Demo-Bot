@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include <ctre/phoenix/motorcontrol/can/TalonSRX.h>
+#include <ctre/phoenix/motorcontrol/ControlMode.h>
 
 #include "subsystems/Drivetrain.h"
 #include "Constants.h"
@@ -34,3 +35,8 @@ Drivetrain::~Drivetrain() {
 
 // This method will be called once per scheduler run
 void Drivetrain::Periodic() {}
+
+void Drivetrain::SetSpeed(double left, double right) {
+    frontLeft->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, left);
+    frontRight->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, right);
+}
