@@ -16,9 +16,9 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class ArcadeDrive : public frc2::CommandHelper<frc2::CommandBase, ArcadeDrive> {
+class TankDrive : public frc2::CommandHelper<frc2::CommandBase, TankDrive> {
   public:
-    ArcadeDrive(Drivetrain* drivetrain, std::function<double(void)> forward, std::function<double(void)> rotation);
+    TankDrive(Drivetrain* drivetrain, std::function<double(void)> leftDrive, std::function<double(void)> rightDrive);
 
     void Initialize() override;
 
@@ -30,6 +30,6 @@ class ArcadeDrive : public frc2::CommandHelper<frc2::CommandBase, ArcadeDrive> {
 
   private:
     Drivetrain* drive;
-    std::function<double(void)> x;
-    std::function<double(void)> z;
+    std::function<double(void)> left;
+    std::function<double(void)> right;
 };

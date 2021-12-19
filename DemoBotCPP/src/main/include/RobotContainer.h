@@ -5,6 +5,7 @@
 #pragma once
 
 #include <frc2/command/Command.h>
+#include <frc/Joystick.h>
 
 #include "commands/ArcadeDrive.h"
 #include "commands/ExampleCommand.h"
@@ -28,11 +29,13 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   ExampleSubsystem m_subsystem;
-  ExampleCommand m_autonomousCommand;
-
   Drivetrain* m_drivetrain;
 
+  ExampleCommand m_autonomousCommand;
   ArcadeDrive* defaultDriveCommand;
+
+  frc::Joystick* joystick1;
+  frc::Joystick* joystick2;
 
   void ConfigureButtonBindings();
 };

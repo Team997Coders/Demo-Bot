@@ -16,9 +16,20 @@
 namespace constants {
     struct Ports {
         static const int
+            // Motor Controller CAN IDs
             DRIVE_FRONT_LEFT = 0,
             DRIVE_FRONT_RIGHT = 1,
             DRIVE_BACK_LEFT = 2,
-            DRIVE_BACK_RIGHT = 3;
+            DRIVE_BACK_RIGHT = 3,
+
+            // Joystick Ports
+            JOYSTICK_1 = 0,
+            JOYSTICK_2 = 1;
+        static const frc::SerialPort::Port
+            // Gyro
+            GYRO = frc::SerialPort::Port::kUSB;
+    };
+    struct Measurements {
+
     };
 }

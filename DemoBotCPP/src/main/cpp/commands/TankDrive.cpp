@@ -2,30 +2,30 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#include "commands/ArcadeDrive.h"
+#include "commands/TankDrive.h"
 #include "subsystems/Drivetrain.h"
 
-ArcadeDrive::ArcadeDrive(Drivetrain* drivetrain, std::function<double(void)> forward, std::function<double(void)> rotation) {
+TankDrive::TankDrive(Drivetrain* drivetrain, std::function<double(void)> leftDrive, std::function<double(void)> rightDrive) {
   // Use addRequirements() here to declare subsystem dependencies.
+  left = leftDrive;
+  right = rightDrive;
   drive = drivetrain;
-  x = forward;
-  z = rotation;
 
   AddRequirements(drivetrain);
 }
 
 // Called when the command is initially scheduled.
-void ArcadeDrive::Initialize() {}
+void TankDrive::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void ArcadeDrive::Execute() {
-  drive->SetSpeed(x() + z(), x() - z());
+void TankDrive::Execute() {
+  drive->SetSpeed(left(), right());
 }
 
 // Called once the command ends or is interrupted.
-void ArcadeDrive::End(bool interrupted) {}
+void TankDrive::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool ArcadeDrive::IsFinished() {
+bool TankDrive::IsFinished() {
   return false;
 }

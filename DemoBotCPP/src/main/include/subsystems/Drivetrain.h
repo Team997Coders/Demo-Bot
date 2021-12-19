@@ -5,7 +5,9 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
+
 #include <ctre/phoenix/motorcontrol/can/TalonSRX.h>
+#include <AHRS.h> // used online installation because offline version had incorrect include path for Sendable.h
 
 class Drivetrain : public frc2::SubsystemBase {
  public:
@@ -24,4 +26,6 @@ class Drivetrain : public frc2::SubsystemBase {
   ctre::phoenix::motorcontrol::can::TalonSRX* frontRight;
   ctre::phoenix::motorcontrol::can::TalonSRX* backLeft;
   ctre::phoenix::motorcontrol::can::TalonSRX* backRight;
+
+  AHRS* gyro;
 };

@@ -14,7 +14,9 @@ Drivetrain::Drivetrain() {
     backLeft = new ctre::phoenix::motorcontrol::can::TalonSRX(constants::Ports::DRIVE_BACK_LEFT);
     backRight = new ctre::phoenix::motorcontrol::can::TalonSRX(constants::Ports::DRIVE_BACK_RIGHT);
 
-    // TODO: Check motor specifications for current limit
+    gyro = new AHRS(constants::Ports::GYRO);
+
+    // TODO: Check motor specifications for current limit 0.87
 
     frontLeft->ConfigFactoryDefault();
     frontRight->ConfigFactoryDefault();
@@ -27,16 +29,21 @@ Drivetrain::Drivetrain() {
 }
 
 Drivetrain::~Drivetrain() {
+    // motor controllers
     delete frontLeft;
     delete frontRight;
     delete backLeft;
     delete backRight;
+
+    // gyro
+    delete gyro;
 }
 
 // This method will be called once per scheduler run
 void Drivetrain::Periodic() {}
 
 void Drivetrain::SetSpeed(double left, double right) {
+    
     frontLeft->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, left);
     frontRight->Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, right);
 }
