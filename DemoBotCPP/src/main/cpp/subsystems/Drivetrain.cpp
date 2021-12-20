@@ -16,12 +16,52 @@ Drivetrain::Drivetrain() {
 
     gyro = new AHRS(constants::Ports::GYRO);
 
-    // TODO: Check motor specifications for current limit 0.87
-
+    // set motors to factory settings
     frontLeft->ConfigFactoryDefault();
     frontRight->ConfigFactoryDefault();
     backLeft->ConfigFactoryDefault();
     backRight->ConfigFactoryDefault();
+    
+    // enable current limiting for drive motors
+    frontLeft->EnableCurrentLimit(true);
+    frontRight->EnableCurrentLimit(true);
+    backLeft->EnableCurrentLimit(true);
+    backRight->EnableCurrentLimit(true);
+
+    // set peak current limits
+    frontLeft->ConfigPeakCurrentLimit(constants::Measurements::PEAK_CURRENT);
+    frontRight->ConfigPeakCurrentLimit(constants::Measurements::PEAK_CURRENT);
+    backLeft->ConfigPeakCurrentLimit(constants::Measurements::PEAK_CURRENT);
+    backRight->ConfigPeakCurrentLimit(constants::Measurements::PEAK_CURRENT);
+
+    // set peak current limit duration
+    frontLeft->ConfigPeakCurrentDuration(constants::Measurements::PEAK_CURRENT_DURATION);
+    frontRight->ConfigPeakCurrentDuration(constants::Measurements::PEAK_CURRENT_DURATION);
+    backLeft->ConfigPeakCurrentDuration(constants::Measurements::PEAK_CURRENT_DURATION);
+    backRight->ConfigPeakCurrentDuration(constants::Measurements::PEAK_CURRENT_DURATION);
+
+    // set continous current limit
+    frontLeft->ConfigContinuousCurrentLimit(constants::Measurements::CONTINUOUS_CURRENT);
+    frontRight->ConfigContinuousCurrentLimit(constants::Measurements::CONTINUOUS_CURRENT);
+    backLeft->ConfigContinuousCurrentLimit(constants::Measurements::CONTINUOUS_CURRENT);
+    backRight->ConfigContinuousCurrentLimit(constants::Measurements::CONTINUOUS_CURRENT);
+
+    // set nominal motor outout (for maximum efficiency)
+    frontLeft->ConfigNominalOutputForward(constants::Measurements::NOMINAL_OUTPUT);
+    frontRight->ConfigNominalOutputForward(constants::Measurements::NOMINAL_OUTPUT);
+    backLeft->ConfigNominalOutputForward(constants::Measurements::NOMINAL_OUTPUT);
+    backRight->ConfigNominalOutputForward(constants::Measurements::NOMINAL_OUTPUT);
+
+    frontLeft->ConfigNominalOutputReverse(constants::Measurements::NOMINAL_OUTPUT);
+    frontRight->ConfigNominalOutputReverse(constants::Measurements::NOMINAL_OUTPUT);
+    backLeft->ConfigNominalOutputReverse(constants::Measurements::NOMINAL_OUTPUT);
+    backRight->ConfigNominalOutputReverse(constants::Measurements::NOMINAL_OUTPUT);
+
+    // set encoders (probably not all motor controllers have talons)
+    frontLeft->ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::CTRE_MagEncoder_Relative, 0, 50);
+    frontRight->ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::CTRE_MagEncoder_Relative, 0, 50);
+    backLeft->ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::CTRE_MagEncoder_Relative, 0, 50);
+    backRight->ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::CTRE_MagEncoder_Relative, 0, 50);
 
     backLeft->Follow(*frontLeft);
     backRight->Follow(*frontRight);
