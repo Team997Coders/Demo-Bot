@@ -8,10 +8,9 @@
 #include <frc/Joystick.h>
 
 #include "commands/ArcadeDrive.h"
-#include "commands/ExampleCommand.h"
+#include "commands/DoNothing.h"
 
 #include "subsystems/Drivetrain.h"
-#include "subsystems/ExampleSubsystem.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -28,14 +27,13 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
-  ExampleSubsystem m_subsystem;
   Drivetrain* m_drivetrain;
 
-  ExampleCommand m_autonomousCommand;
-  ArcadeDrive* defaultDriveCommand;
+  ArcadeDrive* m_defaultDriveCommand;
+  DoNothing* m_autonomousCommand;
 
-  frc::Joystick* joystick1;
-  frc::Joystick* joystick2;
+  frc::Joystick* m_joystick1;
+  frc::Joystick* m_joystick2;
 
   void ConfigureButtonBindings();
 };

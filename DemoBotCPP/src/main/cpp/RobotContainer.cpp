@@ -10,23 +10,34 @@
 
 #include "commands/ArcadeDrive.h"
 
-RobotContainer::RobotContainer() : m_autonomousCommand(&m_subsystem) {
-  // Controls
-  joystick1 = new frc::Joystick(constants::Ports::JOYSTICK_1);
+RobotContainer::RobotContainer() {
+  // controls
+  m_joystick1 = new frc::Joystick(constants::Ports::JOYSTICK_1);
   
-  // Subsystems
+  // subsystems
   m_drivetrain = new Drivetrain();
 
-  // Commands
-  defaultDriveCommand = new ArcadeDrive(m_drivetrain, 
-    [joystick1 = joystick1]() -> double { return -joystick1->GetRawAxis(0); }, 
-    [joystick1 = joystick1]() -> double { return joystick1->GetRawAxis(1); });
+  // commands (need to be mindful of deletion)
+  m_defaultDriveCommand = new ArcadeDrive(m_drivetrain, 
+    [m_joystick1 = m_joystick1]() -> double { return -m_joystick1->GetRawAxis(0); }, 
+    [m_joystick1 = m_joystick1]() -> double { return m_joystick1->GetRawAxis(1); });
 
-  // Set Default Commands
-  m_drivetrain->SetDefaultCommand(*defaultDriveCommand);
+  // set default commands
+  m_drivetrain->SetDefaultCommand(*m_defaultDriveCommand);
 
   // Configure the button bindings
   ConfigureButtonBindings();
+}
+
+RobotContainer::~RobotContainer() {
+  // controls
+  delete m_joystick1;
+  
+  // subsystems
+  delete m_drivetrain;
+
+  // commands
+  delete m_defaultDriveCommand;
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -35,9 +46,5 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
-  return &m_autonomousCommand;
-}
-
-RobotContainer::~RobotContainer() {
-  delete m_drivetrain;
+  return m_autonomousCommand;
 }

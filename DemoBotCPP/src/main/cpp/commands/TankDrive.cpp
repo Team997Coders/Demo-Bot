@@ -5,12 +5,11 @@
 #include "commands/TankDrive.h"
 #include "subsystems/Drivetrain.h"
 
-TankDrive::TankDrive(Drivetrain* drivetrain, std::function<double(void)> leftDrive, std::function<double(void)> rightDrive) {
+TankDrive::TankDrive(Drivetrain* drivetrain, std::function<double(void)> left, std::function<double(void)> right) :
+  m_drivetrain(drivetrain),
+  m_left(left),
+  m_right(right) {
   // Use addRequirements() here to declare subsystem dependencies.
-  left = leftDrive;
-  right = rightDrive;
-  drive = drivetrain;
-
   AddRequirements(drivetrain);
 }
 
@@ -19,7 +18,7 @@ void TankDrive::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void TankDrive::Execute() {
-  drive->SetSpeed(left(), right());
+  m_drivetrain->SetSpeed(m_left(), m_right());
 }
 
 // Called once the command ends or is interrupted.

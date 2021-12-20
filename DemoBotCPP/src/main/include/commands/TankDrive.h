@@ -18,7 +18,7 @@
  */
 class TankDrive : public frc2::CommandHelper<frc2::CommandBase, TankDrive> {
   public:
-    TankDrive(Drivetrain* drivetrain, std::function<double(void)> leftDrive, std::function<double(void)> rightDrive);
+    TankDrive(Drivetrain* drivetrain, std::function<double(void)> left, std::function<double(void)> right);
 
     void Initialize() override;
 
@@ -29,7 +29,7 @@ class TankDrive : public frc2::CommandHelper<frc2::CommandBase, TankDrive> {
     bool IsFinished() override;
 
   private:
-    Drivetrain* drive;
-    std::function<double(void)> left;
-    std::function<double(void)> right;
+    Drivetrain* m_drivetrain;
+    std::function<double(void)> m_left;
+    std::function<double(void)> m_right;
 };

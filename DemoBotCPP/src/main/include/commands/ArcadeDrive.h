@@ -18,7 +18,7 @@
  */
 class ArcadeDrive : public frc2::CommandHelper<frc2::CommandBase, ArcadeDrive> {
   public:
-    ArcadeDrive(Drivetrain* drivetrain, std::function<double(void)> forward, std::function<double(void)> rotation);
+    ArcadeDrive(Drivetrain* drivetrain, std::function<double(void)> x, std::function<double(void)> z);
 
     void Initialize() override;
 
@@ -29,7 +29,7 @@ class ArcadeDrive : public frc2::CommandHelper<frc2::CommandBase, ArcadeDrive> {
     bool IsFinished() override;
 
   private:
-    Drivetrain* drive;
-    std::function<double(void)> x;
-    std::function<double(void)> z;
+    Drivetrain* m_drivetrain;
+    std::function<double(void)> m_x;
+    std::function<double(void)> m_z;
 };
